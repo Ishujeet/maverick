@@ -1,0 +1,6 @@
+domain: maverick.com
+layout:
+- go.kubebuilder.io/v3
+projectName: maverick
+repo: github.com/Ishujeet/maverick
+version: "3"
