@@ -1,0 +1,12 @@
+apiVersion: recommender.maverick.com/v1beta1
+kind: RecommenderObject
+metadata:
+  labels:
+    app.kubernetes.io/name: recommenderobject
+    app.kubernetes.io/instance: recommenderobject-sample
+    app.kubernetes.io/part-of: maverick
+    app.kuberentes.io/managed-by: kustomize
+    app.kubernetes.io/created-by: maverick
+  name: recommenderobject-sample
+spec:
+  # TODO(user): Add fields here

@@ -3,4 +3,14 @@ layout:
 - go.kubebuilder.io/v3
 projectName: maverick
 repo: github.com/Ishujeet/maverick
+resources:
+- api:
+    crdVersion: v1
+    namespaced: true
+  controller: true
+  domain: maverick.com
+  group: recommender
+  kind: RecommenderObject
+  path: github.com/Ishujeet/maverick/api/v1beta1
+  version: v1beta1
 version: "3"
