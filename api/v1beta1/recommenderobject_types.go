@@ -57,16 +57,13 @@ const (
 )
 
 type Restrictions struct {
-	Type  Type               `json:"type"`
-	Value *resource.Quantity `json:"value"`
+	MaxResourceRequests Resource `json:maxResourceRequests,omitempty`
+	MinResourceRequests Resource `json:maxResourceRequests,omitempty`
+	MaxResourceLimits   Resource `json:maxResourceLimits,omitempty`
+	MinResourceLimits   Resource `json:minResourceLimits,omitempty`
 }
 
-type ResourceRequests struct {
-	Type  Type               `json:"type"`
-	Value *resource.Quantity `json:"value"`
-}
-
-type ResourceLimits struct {
+type Resource struct {
 	Type  Type               `json:"type"`
 	Value *resource.Quantity `json:"value"`
 }
@@ -90,8 +87,8 @@ type RecommenderObjectSpec struct {
 	// Specify threshold percentage difference b/w current and new resources metrics
 	Threshold *int32 `json:"threshold"`
 
-	// Specify restrictions for recommender for resource changes
-	Restrictions []Restrictions `json:"restrictions,omitempty"`
+	// Specify restrictions for recommender for resource changes(need to modified for upper and lower ranges)
+	Restrictions Restrictions `json:"restrictions,omitempty"`
 }
 
 // RecommenderObjectStatus defines the observed state of RecommenderObject
@@ -104,15 +101,15 @@ type RecommenderObjectStatus struct {
 	// +optional
 	TargetName string `json:"targetName"`
 	// +optional
-	OriginalResouceRequests []ResourceRequests `json:"originalResouceRequests"`
+	OriginalResouceRequests Resource `json:"originalResouceRequests"`
 	// +optional
-	OriginalResouceLimits []ResourceLimits `json:"originalResouceLimits"`
+	OriginalResouceLimits Resource `json:"originalResouceLimits"`
 	// +optional
 	LastUpdateTime *metav1.Time `json:"lastUpdateTime,omitempty"`
 	// +optional
-	LatestResouceRequests []ResourceRequests `json:"latestResouceRequests"`
+	LatestResouceRequests Resource `json:"latestResouceRequests"`
 	// +optional
-	LatestResouceLimits []ResourceLimits `json:"latestResouceLimits"`
+	LatestResouceLimits Resource `json:"latestResouceLimits"`
 	// +optional
 	Restrictions Restrictions `json:"restrictions,omitempty"`
 	// +optional

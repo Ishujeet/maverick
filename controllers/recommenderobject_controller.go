@@ -19,12 +19,14 @@ package controllers
 import (
 	"context"
 
+	recommenderv1beta1 "github.com/Ishujeet/maverick/api/v1beta1"
+	appsv1 "k8s.io/api/apps/v1"
+	"k8s.io/apimachinery/pkg/api/errors"
 	"k8s.io/apimachinery/pkg/runtime"
+	"k8s.io/apimachinery/pkg/types"
 	ctrl "sigs.k8s.io/controller-runtime"
 	"sigs.k8s.io/controller-runtime/pkg/client"
 	"sigs.k8s.io/controller-runtime/pkg/log"
-
-	recommenderv1beta1 "github.com/Ishujeet/maverick/api/v1beta1"
 )
 
 // RecommenderObjectReconciler reconciles a RecommenderObject object
@@ -47,10 +49,23 @@ type RecommenderObjectReconciler struct {
 // For more details, check Reconcile and its Result here:
 // - https://pkg.go.dev/sigs.k8s.io/controller-runtime@v0.13.0/pkg/reconcile
 func (r *RecommenderObjectReconciler) Reconcile(ctx context.Context, req ctrl.Request) (ctrl.Result, error) {
-	_ = log.FromContext(ctx)
+	log := log.FromContext(ctx)
 
-	// TODO(user): your logic here
+	var recommenderObject recommenderv1beta1.RecommenderObject
+	if err := r.Get(ctx, req.NamespacedName, &recommenderObject); err != nil {
+		log.Error(err, "unable to fetch RecommenderObject")
+		// we'll ignore not-found errors, since they can't be fixed by an immediate
+		// requeue (we'll need to wait for a new notification), and we can get them
+		// on deleted requests.
+		return ctrl.Result{}, client.IgnoreNotFound(err)
+	}
 
+	deployment := &appsv1.Deployment{}
+	if err := r.Get(ctx, types.NamespacedName{Name: recommenderObject.Spec.TargetRef.Name, Namespace: recommenderObject.Namespace}, deployment); err != nil && errors.IsNotFound(err) {
+		log.Error(err, "Deployment not found")
+		//If deployment not exists Recommender Object won't work
+		return ctrl.Result{}, err
+	}
 	return ctrl.Result{}, nil
 }
 
