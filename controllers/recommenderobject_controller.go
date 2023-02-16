@@ -38,6 +38,8 @@ type RecommenderObjectReconciler struct {
 //+kubebuilder:rbac:groups=recommender.maverick.com,resources=recommenderobjects,verbs=get;list;watch;create;update;patch;delete
 //+kubebuilder:rbac:groups=recommender.maverick.com,resources=recommenderobjects/status,verbs=get;update;patch
 //+kubebuilder:rbac:groups=recommender.maverick.com,resources=recommenderobjects/finalizers,verbs=update
+//+kubebuilder:rbac:groups=appsV1,resources=deployment,verbs=get;list;watch;create;update;patch;delete
+//+kubebuilder:rbac:groups=appsV1,resources=deployment/status,verbs=get
 
 // Reconcile is part of the main kubernetes reconciliation loop which aims to
 // move the current state of the cluster closer to the desired state.

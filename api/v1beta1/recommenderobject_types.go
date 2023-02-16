@@ -57,10 +57,10 @@ const (
 )
 
 type Restrictions struct {
-	MaxResourceRequests Resource `json:maxResourceRequests,omitempty`
-	MinResourceRequests Resource `json:maxResourceRequests,omitempty`
-	MaxResourceLimits   Resource `json:maxResourceLimits,omitempty`
-	MinResourceLimits   Resource `json:minResourceLimits,omitempty`
+	MaxResourceRequests Resource `json:"maxResourceRequests,omitempty"`
+	MinResourceRequests Resource `json:"minResourceRequests,omitempty"`
+	MaxResourceLimits   Resource `json:"maxResourceLimits,omitempty"`
+	MinResourceLimits   Resource `json:"minResourceLimits,omitempty"`
 }
 
 type Resource struct {

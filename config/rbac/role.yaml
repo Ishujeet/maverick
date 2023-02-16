@@ -1,0 +1,51 @@
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  creationTimestamp: null
+  name: manager-role
+rules:
+- apiGroups:
+  - appsV1
+  resources:
+  - deployment
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
+  - appsV1
+  resources:
+  - deployment/status
+  verbs:
+  - get
+- apiGroups:
+  - recommender.maverick.com
+  resources:
+  - recommenderobjects
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
+  - recommender.maverick.com
+  resources:
+  - recommenderobjects/finalizers
+  verbs:
+  - update
+- apiGroups:
+  - recommender.maverick.com
+  resources:
+  - recommenderobjects/status
+  verbs:
+  - get
+  - patch
+  - update
